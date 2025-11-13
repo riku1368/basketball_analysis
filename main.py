@@ -1,6 +1,6 @@
 import os
 import argparse
-from utils import read_video, save_video
+from utils import read_video, save_video, get_video_fps
 from trackers import PlayerTracker, BallTracker
 from team_assigner import TeamAssigner
 from court_keypoint_detector import CourtKeypointDetector
@@ -40,6 +40,8 @@ def main():
     
     # Read Video
     video_frames = read_video(args.input_video)
+
+    original_fps = get_video_fps(args.input_video)
     
     ## Initialize Tracker
     player_tracker = PlayerTracker(PLAYER_DETECTOR_PATH)
@@ -158,7 +160,7 @@ def main():
                                                     )
 
     # Save video
-    save_video(output_video_frames, args.output_video)
+    save_video(output_video_frames, args.output_video,fps=original_fps)
 
 if __name__ == '__main__':
     main()
