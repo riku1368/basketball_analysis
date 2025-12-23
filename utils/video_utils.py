@@ -27,13 +27,12 @@ def read_video(video_path):
         frames.append(frame)
     return frames
 
-# 🌟 新規追加: 元動画のFPSを取得する関数
+#元動画のFPSを取得
 def get_video_fps(video_path):
     """
     Get the frame rate (FPS) of the input video file.
     """
     cap = cv2.VideoCapture(video_path)
-    # cv2.CAP_PROP_FPS (プロパティID: 5) を使って FPS を取得
     fps = cap.get(cv2.CAP_PROP_FPS)
     cap.release()
     return fps
