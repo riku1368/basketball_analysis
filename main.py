@@ -173,7 +173,7 @@ def main():
             'player_speeds': player_speed_per_frame
         }
         
-        save_analysis_results(args.output_dir, video_frames, **analysis_results)
+        save_analysis_results(args.output_dir,**analysis_results)
 
     # ===== Draw output =====
     if not args.skip_video:
