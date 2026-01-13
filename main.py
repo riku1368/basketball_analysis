@@ -60,16 +60,17 @@ def convert_to_json_serializable(obj):
     else:
         return obj
 
-def save_analysis_results(output_dir, **data):
+def save_analysis_results(output_dir, video_path, **data):
     """分析結果をJSON形式で保存する"""
     os.makedirs(output_dir, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    # 元動画名（.mp4なし）を取得
+    video_name = os.path.splitext(os.path.basename(video_path))[0]
     
     # データをJSON互換形式に変換
     json_compatible_data = convert_to_json_serializable(data)
     
     # JSON保存（Unity用・完全なデータ）
-    json_path = os.path.join(output_dir, f'analysis_{timestamp}.json')
+    json_path = os.path.join(output_dir, f'analysis_{video_name}.json')
     with open(json_path, 'w', encoding='utf-8') as f:
         json.dump(json_compatible_data, f, indent=2, ensure_ascii=False, default=str)
     print(f"✓ JSON saved: {json_path}")
@@ -173,7 +174,7 @@ def main():
             'player_speeds': player_speed_per_frame
         }
         
-        save_analysis_results(args.output_dir,**analysis_results)
+        save_analysis_results(args.output_dir,args.input_video,**analysis_results)
 
     # ===== Draw output =====
     if not args.skip_video:
